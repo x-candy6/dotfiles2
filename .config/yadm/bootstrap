@@ -30,15 +30,15 @@ echo "Initializing Submodules for ${system_type} system with ${pkg_manager} pack
 if [ "$system_type" = "Linux" ]; then
 
 	# Debian-based distribution
-	if [ "$pkg_manager" = "apt"]; then
+	if [ "$pkg_manager" = "apt" ]; then
 		if ! command -v vim >/dev/null 2>&1; then
 			echo "Installing VIM"
 			sudo apt install vim
 		fi
 
 		if ! test -e ~/.vim/autoload/plug.vim; then
-			silent! execute '!curl --create-dirs -fsSLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
-			autocmd VimEnter * silent! PlugInstall
+			vim -c silent! execute '!curl --create-dirs -fsSLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+			vim -c autocmd VimEnter * silent! PlugInstall
 		fi
 	fi
 fi
