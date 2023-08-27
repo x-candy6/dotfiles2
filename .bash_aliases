@@ -55,3 +55,6 @@ alias gico='git init; git add .; git commit ; git push;'
 #alias getlinks='echo "curl -s URL | grep -Eo \'href="https?://[^"]+\' | sed \'s/href=\'//\'"'
 
 
+alias music='mpv --playlist=$HOME/magenta/media/Music/playlist.m3u --shuffle > /dev/null 2>&1 &'
+
+
