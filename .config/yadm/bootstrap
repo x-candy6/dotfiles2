@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Identify System and Package Manager
+## BEGIN
+declare -A osInfo;
+osInfo[/etc/redhat-release]=yum
+osInfo[/etc/arch-release]=pacman
+osInfo[/etc/gentoo-release]=emerge
+osInfo[/etc/SuSE-release]=zypp
+osInfo[/etc/debian_version]=apt
+osInfo[/etc/alpine-release]=apk
+
+for f in ${!osInfo[@]}
+do
+    if [[ -f $f ]];then
+	pkg_manager=${osInfo[$f]}
+        echo Package manager: ${osInfo[$f]}
+    fi
+done
+
+system_type=$(uname -s)
+## END
+
+# Script Initialization
+cd "$HOME"
+echo "Initializing Submodules for ${system_type} system with ${pkg_manager} package manager..."
+
+# Installing submodules if not already installed...
+# Linux Systems
+if [ "$system_type" = "Linux" ]; then
+
+	# Debian-based distribution
+	if [ "$pkg_manager" = "apt"]; then
+		if ! command -v vim >/dev/null 2>&1; then
+			echo "Installing VIM"
+			sudo apt install vim
+		fi
+
+		if empty(glob("~/.vim/autoload/plug.vim"))
+			silent! execute '!curl --create-dirs -fsSLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+			silent! if plug#begin()
+				Plug 'vim-autoformat/vim-autoformat'
+				Plug 'voldikss/vim-floaterm'
+			        Plug 'alvan/vim-closetag'
+	                        Plug 'preservim/nerdtree'
+	                        Plug 'flazz/vim-colorschemes'
+	                        Plug 'voldikss/vim-floaterm'
+	                        Plug 'mhinz/vim-startify'
+	                        
+	                        " IDE Plugins
+	                        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	                        """ Frontend Development
+	                        Plug 'mattn/emmet-vim'
+	                        Plug 'tpope/vim-surround'
+	                        Plug 'AndrewRadev/tagalong.vim'
+			fi
+			autocmd VimEnter * silent! PlugInstall
+		fi
+
