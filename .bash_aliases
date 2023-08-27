@@ -49,6 +49,7 @@ alias gaa='git add .'
 alias gc='git commit -m '
 alias gp='git push '
 alias gico='git init; git add .; git commit ; git push;'
+alias dotup='read -e updated_file;echo adding $(updated_file);yadm add ${updated_file}; yadm commit -m "updates"; yadm push;'
 
 
 # Web 
